@@ -14,6 +14,10 @@
     {{!-- Styles'n'Scripts --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
 
+    {{!-- Highlight support --}}
+    <link rel="stylesheet" href="{{asset_"highlight/styles/atom-one-dark.css"}}">
+    <script src="{{asset_"highlight/highlight.pack.js"}}"></script>
+    
     {{!-- This tag outputs SEO meta+structured data and other important settings --}}
     {{ghost_head}}
 
@@ -76,5 +80,7 @@
     {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
     {{ghost_foot}}
 
+    {{!-- highlight support --}}
+    <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
