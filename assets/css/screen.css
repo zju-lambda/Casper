@@ -792,32 +792,23 @@ Usage (In Ghost editor):
     margin-bottom: 0;
 }
 
-.post-full-content code {
-    padding: 0 5px 2px;
-    font-size: 0.8em;
+.post-full-content pre.editor {
+    padding: 0;
+    font-size: 1em;
     line-height: 1em;
     font-weight: 400!important;
-    background: var(--whitegrey);
-    border-radius: 3px;
+    vertical-align: baseline;
+    border-radius: 4px;
 }
 
 .post-full-content pre {
     overflow-x: auto;
-    margin: 1.5em 0 3em;
-    padding: 10px;
+    margin: 1.5em 0 1em;
+    padding: 2px;
     max-width: 100%;
-    color: var(--whitegrey);
-    font-size: 1.4rem;
     line-height: 1.5em;
-    border-radius: 5px;
 }
 
-.post-full-content pre code {
-    padding: 0;
-    font-size: inherit;
-    line-height: inherit;
-    background: transparent;
-}
 
 .post-full-content .fluid-width-video-wrapper {
     margin: 1.5em 0 3em;

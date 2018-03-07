@@ -14,14 +14,29 @@
     {{!-- Styles'n'Scripts --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
 
-    {{!-- Highlight support --}}
-    <link rel="stylesheet" type="text/css" href="{{asset "highlight/styles/atom-one-dark.css"}}" />
-    <script src="{{asset "highlight/highlight.pack.js"}}" ></script>
-    
     {{!-- math support --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/contrib/auto-render.min.js" integrity="sha384-IiI65aU9ZYub2MY9zhtKd1H2ps7xxf+eb2YFG9lX6uRqpXCvBTOidPRCXCrQ++Uc" crossorigin="anonymous"></script>
+    
+    {{!-- hack style --}}
+    <style>
+        pre {
+            word-wrap: normal;
+            -moz-hyphens: none;
+            -ms-hyphens: none;
+            -webkit-hyphens: none;
+            hyphens: none;
+            color: #333;
+            white-space: pre;
+        }
+        .editor {
+            border: 1px solid black;
+		    margin: auto;
+		    height: 200px;
+		    width: 80%;
+        }
+    </style>
 
     {{!-- This tag outputs SEO meta+structured data and other important settings --}}
     {{ghost_head}}
@@ -62,6 +77,9 @@
     </div>
     {{/if}}
 
+    {{!-- editor support --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.1/ace.js"></script>
+        
     {{!-- jQuery + Fitvids, which makes all video embeds responsive --}}
     <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -82,9 +100,69 @@
 
     {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
     {{ghost_foot}}
+    
 
-    {{!-- highlight support --}}
-    <script>hljs.initHighlightingOnLoad();</script>
+    {{!-- code runnner support --}}
+    <script>
+        $("pre").find("code").parent().after('<p style="text-align:right"><a href="#" class="run">Run</a></p><blockquote class="run" style="display:none"></blockquote>');
+        var as=$("a.run"),bs=$("blockquote.run"),cs=$("pre code"),ds=cs.parent();
+        var langs = [],editors = [];
+        ds.addClass("editor");  
+        for(i=0;i<as.length;i++){
+            as[i].setAttribute("onclick","sendCode("+i+")");
+            as[i].setAttribute("href","#code"+i+"");
+            var ss = cs[i].classList;
+            var flag = true;
+            for(j=0;j<ss.length;j++) if(flag){
+                var s = ss[j];
+                var m = s.match("language-(.+)");
+                if(m){
+                    flag = false;
+                    switch(m[1]){
+                    case "cpp":
+                        langs[i] = "c_cpp";
+                        break;
+                    case "Haskell":
+                        langs[i] = "haskell";
+                        break;
+                    }
+                }
+            }
+            editors[i] = ace.edit(ds[i]);
+            ds[i].setAttribute("id","code"+i);
+            editors[i].setAutoScrollEditorIntoView(true);
+            editors[i].setOption("maxLines", 30);
+            editors[i].setTheme("ace/theme/ambiance");
+            console.log("ace/mode/"+langs[i]);
+            editors[i].session.setMode("ace/mode/"+langs[i]);
+            editors[i].renderer.setShowGutter(false);
+        }
+        $(".ace_content").css("margin-top","10px");
+        function sendCode(i){
+            // eval by glot.io
+            var code = editors[i].getValue();
+            console.log(code);
+            var lang = langs[i];
+
+            bs[i].setAttribute("style","display:block");
+            bs[i].textContent = "result:";
+
+            /*
+            $.ajax({
+                'url':"https://run.glot.io/languages/"+lang+"/latest",
+                'headers':{'Authorization':'Token ' + token},
+                'type':'post',
+                'contentType':'application/json',
+                'data':'{"files": [{"name": "test", "content": '+code+'}]}',
+                'error':function(xhr){
+                    console.log(xhr);
+                },
+                'success':function(response){
+                    bs[i].textContent = response.stdout + "\n" + response.stderr + "\n" + response.error;   
+                }
+            });*/
+        }
+    </script>
 
     {{!-- math support --}}
     <script>        

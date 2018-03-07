@@ -33,7 +33,7 @@ gulp.task('css', function () {
         easyimport,
         customProperties,
         colorFunction(),
-        autoprefixer({browsers: ['last 2 versions']}),
+        autoprefixer({ browsers: ['last 2 versions'] }),
         cssnano()
     ];
 
@@ -53,7 +53,7 @@ gulp.task('watch', function () {
 gulp.task('zip', ['css'], function () {
     var targetDir = 'dist/';
     var themeName = require('./package.json').name;
-    var filename = 'zju-lambda-'+themeName + '.zip';
+    var filename = 'zju-lambda-' + themeName + '.zip';
 
     return gulp.src([
         '**',
