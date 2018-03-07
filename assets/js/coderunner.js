@@ -43,14 +43,12 @@ for(i=0;i<as.length;i++){
     editors[i].setTheme("ace/theme/ambiance");
     editors[i].session.setMode("ace/mode/"+langs4e[i]);
     editors[i].renderer.setShowGutter(false);
-    editors[i].selection.selectLine(0);
+    editors[i].selection.moveCursorFileStart();
 }
 
 function sendCode(i){
-    // eval by glot.io
     var code = editors[i].getValue();
-    console.log(code);
-    var lang = langs[i];
+    var lang = langs4s[i];
 
     bs[i].setAttribute("style","display:block");
     bs[i].textContent = "result:";
@@ -59,7 +57,7 @@ function sendCode(i){
         'url':"http://123.206.103.187:2468/",
         'type':'post',
         'contentType':'application/json',
-        'data':JSON.stringify({"lang":langs4s[i],"code":code}),
+        'data':JSON.stringify({"lang":lang,"code":code}),
         'error':function(xhr){
             console.log(xhr);
         },
