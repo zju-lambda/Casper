@@ -101,79 +101,8 @@
     {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
     {{ghost_foot}}
     
-
     {{!-- code runnner support --}}
-    <script>
-        $("pre").find("code").parent().after('<p style="text-align:right"><a href="#" class="run">Run</a></p><blockquote class="run" style="display:none"></blockquote>');
-        var as=$("a.run"),bs=$("blockquote.run"),cs=$("pre code"),ds=cs.parent();
-        var langs4e = [],langs4s = [],editors = [];
-        ds.addClass("editor");  
-        for(i=0;i<as.length;i++){
-            as[i].setAttribute("onclick","sendCode("+i+")");
-            as[i].setAttribute("href","#code"+i+"");
-            var ss = cs[i].classList;
-            var flag = true;
-            for(j=0;j<ss.length;j++) if(flag){
-                var s = ss[j];
-                var m = s.match("language-(.+)");
-                if(m){
-                    flag = false;
-                    switch(m[1]){
-                    case "c":
-                        langs4s[i] = "c";
-                        langs4e[i] = "c_cpp";
-                    case "cpp":case "c++":
-                        langs4s[i] = "cpp";
-                        langs4e[i] = "c_cpp";
-                        break;
-                    case "haskell":
-                        langs4s[i] = "hs";
-                        langs4e[i] = "haskell";
-                        break;
-                    case "javascript":case "js":
-                        langs4s[i] = "js";
-                        langs4e[i] = "javascript";
-                        break;
-                    case "steak":
-                        langs4s[i] = "steak";
-                        langs4e[i] = "c_cpp";
-                        break;
-                    }
-                }
-            }
-            editors[i] = ace.edit(ds[i]);
-            ds[i].setAttribute("id","code"+i);
-            editors[i].setAutoScrollEditorIntoView(true);
-            editors[i].setOption("maxLines", 30);
-            editors[i].setTheme("ace/theme/ambiance");
-            editors[i].session.setMode("ace/mode/"+langs4e[i]);
-            editors[i].renderer.setShowGutter(false);
-        }
-        $(".ace_content").css("margin-top","10px");
-
-        function sendCode(i){
-            // eval by glot.io
-            var code = editors[i].getValue();
-            console.log(code);
-            var lang = langs[i];
-
-            bs[i].setAttribute("style","display:block");
-            bs[i].textContent = "result:";
-
-            $.ajax({
-                'url':"http://123.206.103.187:2468/",
-                'type':'post',
-                'contentType':'application/json',
-                'data':JSON.stringify({"lang":langs4s[i],"code":code}),
-                'error':function(xhr){
-                    console.log(xhr);
-                },
-                'success':function(response){
-                    bs[i].textContent = response;
-                }
-            });
-        }
-    </script>
+    <script src="{{asset "js/coderunner.js"}}"></script>
 
     {{!-- math support --}}
     <script>        
