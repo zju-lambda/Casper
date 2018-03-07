@@ -106,7 +106,7 @@
     <script>
         $("pre").find("code").parent().after('<p style="text-align:right"><a href="#" class="run">Run</a></p><blockquote class="run" style="display:none"></blockquote>');
         var as=$("a.run"),bs=$("blockquote.run"),cs=$("pre code"),ds=cs.parent();
-        var langs = [],editors = [];
+        var langs4e = [],langs4s = [],editors = [];
         ds.addClass("editor");  
         for(i=0;i<as.length;i++){
             as[i].setAttribute("onclick","sendCode("+i+")");
@@ -119,11 +119,24 @@
                 if(m){
                     flag = false;
                     switch(m[1]){
-                    case "cpp":
-                        langs[i] = "c_cpp";
+                    case "c":
+                        langs4s[i] = "c";
+                        langs4e[i] = "c_cpp";
+                    case "cpp":case "c++":
+                        langs4s[i] = "cpp";
+                        langs4e[i] = "c_cpp";
                         break;
-                    case "Haskell":
-                        langs[i] = "haskell";
+                    case "haskell":
+                        langs4s[i] = "hs";
+                        langs4e[i] = "haskell";
+                        break;
+                    case "javascript":case "js":
+                        langs4s[i] = "js";
+                        langs4e[i] = "javascript";
+                        break;
+                    case "steak":
+                        langs4s[i] = "steak";
+                        langs4e[i] = "c_cpp";
                         break;
                     }
                 }
@@ -133,11 +146,11 @@
             editors[i].setAutoScrollEditorIntoView(true);
             editors[i].setOption("maxLines", 30);
             editors[i].setTheme("ace/theme/ambiance");
-            console.log("ace/mode/"+langs[i]);
-            editors[i].session.setMode("ace/mode/"+langs[i]);
+            editors[i].session.setMode("ace/mode/"+langs4e[i]);
             editors[i].renderer.setShowGutter(false);
         }
         $(".ace_content").css("margin-top","10px");
+
         function sendCode(i){
             // eval by glot.io
             var code = editors[i].getValue();
@@ -147,20 +160,18 @@
             bs[i].setAttribute("style","display:block");
             bs[i].textContent = "result:";
 
-            /*
             $.ajax({
-                'url':"https://run.glot.io/languages/"+lang+"/latest",
-                'headers':{'Authorization':'Token ' + token},
+                'url':"http://123.206.103.187:2468/",
                 'type':'post',
                 'contentType':'application/json',
-                'data':'{"files": [{"name": "test", "content": '+code+'}]}',
+                'data':JSON.stringify({"lang":langs4s[i],"code":code}),
                 'error':function(xhr){
                     console.log(xhr);
                 },
                 'success':function(response){
-                    bs[i].textContent = response.stdout + "\n" + response.stderr + "\n" + response.error;   
+                    bs[i].textContent = response;
                 }
-            });*/
+            });
         }
     </script>
 
