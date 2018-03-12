@@ -1,4 +1,4 @@
-$("pre").find("code").parent().after('<p style="text-align:right"><a href="#" class="run">Run</a></p><blockquote class="run" style="display:none"></blockquote>');
+$("pre").find("code").parent().after('<p class="run" style="text-align:right"><a href="#" class="run">Run</a></p><blockquote class="run" style="display:none"></blockquote>');
 var as=$("a.run"),bs=$("blockquote.run"),cs=$("pre code"),ds=cs.parent();
 var langs4e = [],langs4s = [],editors = [];
 ds.addClass("editor");  
@@ -24,13 +24,31 @@ for(i=0;i<as.length;i++){
                 langs4s[i] = "hs";
                 langs4e[i] = "haskell";
                 break;
-            case "javascript":case "js":
+            case "javascript":
                 langs4s[i] = "js";
                 langs4e[i] = "javascript";
                 break;
             case "steak":
                 langs4s[i] = "steak";
                 langs4e[i] = "c_cpp";
+                break;
+            case "idris":
+                langs4e[i]=langs4s[i]="idris";
+                break;
+            case "agda":
+                langs4e[i]=langs4s[i]="agda";
+                break;
+            case "coq":
+                langs4e[i]=langs4s[i]="coq";
+                break;
+            case "scala":
+                langs4e[i]=langs4s[i]="scala";
+                break;
+            case "lua":
+                langs4e[i]=langs4s[i]="lua";
+                break;
+            default:
+                as[i].setAttribute("style","display:none");
                 break;
             }
         }
@@ -51,7 +69,7 @@ function sendCode(i){
     var lang = langs4s[i];
 
     bs[i].setAttribute("style","display:block");
-    bs[i].textContent = "result:";
+    bs[i].textContent = "running...";
 
     $.ajax({
         'url':"http://123.206.103.187:2468/",
@@ -59,10 +77,10 @@ function sendCode(i){
         'contentType':'application/json',
         'data':JSON.stringify({"lang":lang,"code":code}),
         'error':function(xhr){
-            console.log(xhr);
+            bs[i].textContent = "error";
         },
         'success':function(response){
-            bs[i].textContent = response;
+            bs[i].textContent = "result:\n" + response;
         }
     });
 }
