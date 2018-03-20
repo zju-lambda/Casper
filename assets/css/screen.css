@@ -803,6 +803,7 @@ Usage (In Ghost editor):
 
 .post-full-content pre {
     overflow-x: auto;
+    margin: 1.5em 0 1em;
     padding: 2px;
     max-width: 100%;
     line-height: 1.5em;
@@ -1896,4 +1897,8 @@ Usage (In Ghost editor):
     .site-footer-nav a:first-child {
         margin-left: 0;
     }
+}
+
+.ace_print-margin{
+    display:none;
 }
