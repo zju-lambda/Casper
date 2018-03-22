@@ -165,7 +165,9 @@ for (i = 0; i < as.length; i++) {
                         langs4e[i] = langs4s[i] = "lua";
                         break;
                     case "racket":case "scheme":case "lisp":
-                        langs4e[i] = langs4e[i] = "scheme";
+                        langs4e[i] = "scheme";
+                        langs4s[i] = "racket";
+                        break;
                 }
                 if (m[1] != m[1].toLowerCase()) langs4s[i] = "";
             }

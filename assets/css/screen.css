@@ -803,7 +803,7 @@ Usage (In Ghost editor):
 
 .post-full-content pre {
     overflow-x: auto;
-    margin: 1.5em 0 1em;
+    margin: 0.5em 0 0.5em;
     padding: 2px;
     max-width: 100%;
     line-height: 1.5em;
