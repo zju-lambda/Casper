@@ -168,6 +168,10 @@ for (i = 0; i < as.length; i++) {
                         langs4e[i] = "scheme";
                         langs4s[i] = "racket";
                         break;
+                    case "rust":
+                        langs4e[i] = "rust";
+                        langs4s[i] = "";
+                        break;
                 }
                 if (m[1] != m[1].toLowerCase()) langs4s[i] = "";
             }
