@@ -199,7 +199,7 @@ function sendCode(i) {
     bs[i].textContent = "Running...";
 
     $.ajax({
-        url: "http://123.206.103.187:2468/",
+        url: "http://zju-lambda.tech/run/",
         type: "post",
         contentType: "application/json",
         data: JSON.stringify({ lang: lang, code: base.encode(code) }),
