@@ -6,4 +6,5 @@ script:
 - ssh-add ~/.ssh/id_rsa
 - echo "StrictHostKeyChecking no" > ~/.ssh/config
 - rm -rf .git* id_rsa*
-- rsync -r --delete-after --quiet . ubuntu@zju-lambda.tech:/home/ubuntu/content/themes/zju-lambda-casper
+- rsync -r --delete-after --quiet . ubuntu@zju-lambda.tech:/home/ubuntu/content/themes/temp-casper
+- sudo cp -r temp-casper zju-lambda-casper
