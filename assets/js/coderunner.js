@@ -167,6 +167,9 @@ for (i = 0; i < as.length; i++) {
           case 'rust':
             langs4e[i] = 'rust' = langs4s[i] = 'rust';
             break;
+          case 'python':
+            langs4e[i] = 'python' = langs4s[i] = 'python';
+            break;
         }
         if (m[1] != m[1].toLowerCase()) langs4s[i] = '';
       }
