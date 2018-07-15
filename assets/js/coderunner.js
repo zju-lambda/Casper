@@ -112,7 +112,7 @@ var as = $('a.run'), bs = $('blockquote.run'), cs = $('pre code'),
     ds = cs.parent();
 var langs4e = [], langs4s = [], editors = [];
 
-// todo: steak, coq, adga, racket
+// todo: steak, coq, agda, racket
 for (i = 0; i < as.length; i++) {
   as [i].setAttribute('onclick', 'sendCode(' + i + ')');
   var ss = cs[i].classList;
