@@ -165,13 +165,13 @@ for (i = 0; i < as.length; i++) {
             langs4s[i] = 'racket';
             break;
           case 'rust':
-            langs4e[i] = 'rust' = langs4s[i] = 'rust';
+            langs4e[i] = langs4s[i] = 'rust';
             break;
           case 'python':
-            langs4e[i] = 'python' = langs4s[i] = 'python';
+            langs4e[i] = langs4s[i] = 'python';
             break;
           case 'java':
-            langs4e[i] = 'java' = langs4s[i] = 'java';
+            langs4e[i] = langs4s[i] = 'java';
             break;          
         }
         if (m[1] != m[1].toLowerCase()) langs4s[i] = '';
