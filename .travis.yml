@@ -7,6 +7,7 @@ script:
 - echo "StrictHostKeyChecking no" > ~/.ssh/config
 - rm -rf .git* id_rsa*
 - npm install
+- npm install gulp
 - gulp css
 - rsync -r --delete-after --quiet . ubuntu@zju-lambda.tech:/home/ubuntu/content/themes/temp-casper
 - ssh ubuntu@zju-lambda.tech "cd /home/ubuntu/content/themes/ && sudo rsync -r --delete-after --quiet temp-casper/ zju-lambda-casper/"
