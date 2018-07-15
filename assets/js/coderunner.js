@@ -208,7 +208,7 @@ function sendCode(i) {
       bs[i].textContent = 'Error\n';
     },
     success: function(response) {
-      bs[i].textContent = 'Result:\n' + response;
+      bs[i].innerHTML = 'Result:\n' + response;
     }
   });
 }
