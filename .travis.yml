@@ -9,5 +9,6 @@ script:
 - npm install
 - npm install gulp
 - node node_modules/gulp/bin/gulp.js css
+- rm -rf node_modules
 - rsync -r --delete-after --quiet . ubuntu@zju-lambda.tech:/home/ubuntu/content/themes/temp-casper
 - ssh ubuntu@zju-lambda.tech "cd /home/ubuntu/content/themes/ && sudo rsync -r --delete-after --quiet temp-casper/ zju-lambda-casper/"
