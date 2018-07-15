@@ -205,8 +205,7 @@ function sendCode(i) {
     contentType: 'application/json',
     data: JSON.stringify({lang: lang, code: base.encode(code)}),
     error: function(xhr) {
-      console.log(xhr);
-      bs[i].textContent = 'Error:\n' + xhr;
+      bs[i].textContent = 'Error\n';
     },
     success: function(response) {
       bs[i].textContent = 'Result:\n' + response;
